@@ -15,10 +15,15 @@ https://www.youtube.com/watch?v=_gGI91BmIdk
 ### SETING UP CONDA ENVIORNMENT ###
 
 o pip install TensorFlow==1.15 lxml pillow matplotlib jupyter contextlib2 cython tf_slim
+
 o git clone https://github.com/tensorflow/models.git
+
 o protoc object_detection/protos/*.proto --python_out=.
+
 o python setup.py build
+
 o python setup.py install
+
 o pip install pycocotools (or) pip install git+https://github.com/philferriere/cocoa...^&subdirectory=PythonAPI
 
 ### COMMANDS MUST BE RAN IN \BirdModelTraining ###
