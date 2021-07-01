@@ -26,7 +26,9 @@ o python setup.py install
 
 o pip install pycocotools (or) pip install git+https://github.com/philferriere/cocoa...^&subdirectory=PythonAPI
 
-### COMMANDS MUST BE RAN IN \BirdModelTraining ###
+### COMMANDS MUST BE RAN IN \BirdBotWindows ###
+
+cd BirdBotWindows
 
 python partition_dataset.py
 
