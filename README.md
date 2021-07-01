@@ -50,11 +50,11 @@ o python train.py --train_dir=training/ --pipeline_config_path=training/ssd_mobi
 
 o python export_inference_graph.py --input_type image_tensor --pipeline_config_path training/ssd_mobilenet_v1_fpn.config --trained_checkpoint_prefix training/model.ckpt-50000 --output_directory BirdModel
 
-###SUCCESS - YOU CAN NOW RUN YOUR CUSTOM TENSORFLOW MODEL WITH COMMAND BELOW - SUCCESS###
+### SUCCESS - YOU CAN NOW RUN YOUR CUSTOM TENSORFLOW MODEL WITH COMMAND BELOW - SUCCESS ###
 
 o python BirdBotML.py
 
-###EXPERIMENTAL - EVERYTHING BELOW IS FOR 8-bit QUANTIZATION WHICH IS REQUIRED FOR TPU HARDWARE - EXPERIMENTAL###
+### EXPERIMENTAL - EVERYTHING BELOW IS FOR 8-bit QUANTIZATION WHICH IS REQUIRED FOR TPU HARDWARE - EXPERIMENTAL ###
 
 o python export_tflite_ssd_graph.py --pipeline_config_path=training/ssd_mobilenet_v1_fpn.config --trained_checkpoint_prefix=training/model.ckpt-30000 --output_directory=BirdModelTFlite --add_postprocessing_op=true
 
