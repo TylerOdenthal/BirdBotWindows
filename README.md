@@ -14,6 +14,8 @@ https://www.youtube.com/watch?v=_gGI91BmIdk
 
 ### SETING UP CONDA ENVIORNMENT ###
 
+o https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+
 o pip install TensorFlow==1.15 lxml pillow matplotlib jupyter contextlib2 cython tf_slim
 
 o git clone https://github.com/tensorflow/models.git
