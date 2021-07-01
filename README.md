@@ -28,41 +28,41 @@ o pip install pycocotools (or) pip install git+https://github.com/philferriere/c
 
 ### COMMANDS MUST BE RAN IN \BirdBotWindows ###
 
-cd BirdBotWindows
+o cd BirdBotWindows
 
-python partition_dataset.py
+o python partition_dataset.py
 
-python xml_to_csv.py
+o python xml_to_csv.py
 
-python generate_tfrecord.py --csv_input=B:/BirdBot/BirdModelTraining/data/train_labels.csv --image_dir=B:/BirdBot/BirdModelTraining/images  --output_path=B:/BirdBot/BirdModelTraining/data/train.record
+o python generate_tfrecord.py --csv_input=B:/BirdBot/BirdModelTraining/data/train_labels.csv --image_dir=B:/BirdBot/BirdModelTraining/images  --output_path=B:/BirdBot/BirdModelTraining/data/train.record
 
-python generate_tfrecord.py --csv_input=B:/BirdBot/BirdModelTraining/data/test_labels.csv --image_dir=B:/BirdBot/BirdModelTraining/images --output_path=B:/BirdBot/BirdModelTraining/data/test.record
+o python generate_tfrecord.py --csv_input=B:/BirdBot/BirdModelTraining/data/test_labels.csv --image_dir=B:/BirdBot/BirdModelTraining/images --output_path=B:/BirdBot/BirdModelTraining/data/test.record
 
 ### COMMANDS MUST BE RAN IN \object_detection (I think... Test \BirdModelTraining) ###
 
-python train.py --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v1_fpn.config --logtostderr
+o python train.py --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v1_fpn.config --logtostderr
 
-python export_inference_graph.py --input_type image_tensor --pipeline_config_path training/ssd_mobilenet_v1_fpn.config --trained_checkpoint_prefix training/model.ckpt-50000 --output_directory BirdModel
+o python export_inference_graph.py --input_type image_tensor --pipeline_config_path training/ssd_mobilenet_v1_fpn.config --trained_checkpoint_prefix training/model.ckpt-50000 --output_directory BirdModel
 
 ###SUCCESS### YOU CAN NOW RUN TENSORFLOW WITH COMMAND BELOW ###SUCCESS###
 
-python BirdBotML.py
+o python BirdBotML.py
 
 ### EVERYTHING BELOW IS FOR 8-bit QUANTIZATION WHICH IS REQUIRED FOR TPU HARDWARE ###
 
-python export_tflite_ssd_graph.py --pipeline_config_path=training/ssd_mobilenet_v1_fpn.config --trained_checkpoint_prefix=training/model.ckpt-30000 --output_directory=BirdModelTFlite --add_postprocessing_op=true
+o python export_tflite_ssd_graph.py --pipeline_config_path=training/ssd_mobilenet_v1_fpn.config --trained_checkpoint_prefix=training/model.ckpt-30000 --output_directory=BirdModelTFlite --add_postprocessing_op=true
 
-tflite_convert --output_file=BirdModelTFlite/detect.tflite --graph_def_file=B:/BirdBot/BirdModel/models/research/object_detection/BirdModelTFlite/tflite_graph.pb --input_arrays=normalized_input_image_tensor --output_arrays=TFLite_Detection_PostProcess,TFLite_Detection_PostProcess:1,TFLite_Detection_PostProcess:2,TFLite_Detection_PostProcess:3 --input_shape=1,480,480,3 --allow_custom_ops --optimizations={tf.lite.Optimize.DEFAULT} --inference_type=QUANTIZED_UINT8 --mean_values=128 --std_dev_values=128 --default_ranges_min=0 --default_ranges_max=10
+o tflite_convert --output_file=BirdModelTFlite/detect.tflite --graph_def_file=B:/BirdBot/BirdModel/models/research/object_detection/BirdModelTFlite/tflite_graph.pb --input_arrays=normalized_input_image_tensor --output_arrays=TFLite_Detection_PostProcess,TFLite_Detection_PostProcess:1,TFLite_Detection_PostProcess:2,TFLite_Detection_PostProcess:3 --input_shape=1,480,480,3 --allow_custom_ops --optimizations={tf.lite.Optimize.DEFAULT} --inference_type=QUANTIZED_UINT8 --mean_values=128 --std_dev_values=128 --default_ranges_min=0 --default_ranges_max=10
 
 ### FIGURE OUT --mean_values=128 --std_dev_values=128 --default_ranges_min=0 --default_ranges_max=10 ###
 ### TPU models are jank AF until I figure out how to properly convert/train my models in 8-bit quantization - doesn't run fast ###
 
-launch "ubuntu" in conda env
+o launch "ubuntu" in conda env
 
-go to C:\Users\Tyler\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs
+o go to C:\Users\Tyler\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs
 
-update detect.tflite
+o update detect.tflite
 
-sudo edgetpu_compiler detect.tflite
+o sudo edgetpu_compiler detect.tflite
 
-python RunTPUExample.py
+o python RunTPUExample.py
